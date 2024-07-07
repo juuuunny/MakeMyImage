@@ -18,7 +18,7 @@ public class UserService {
 
     public void join(JoinRequest joinRequest)
     {
-        if(userRepository.existByEmail(joinRequest.getEmail())){
+        if(userRepository.existsByEmail(joinRequest.getEmail())){
             throw new CustomException(HttpStatus.CONFLICT, "Email already in use");
         }
 
