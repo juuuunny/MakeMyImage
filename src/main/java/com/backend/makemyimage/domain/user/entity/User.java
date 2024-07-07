@@ -1,4 +1,4 @@
-package com.backend.makemyimage.user.entity;
+package com.backend.makemyimage.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
