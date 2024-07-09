@@ -40,6 +40,12 @@ public class ImageController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/images/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteImageById(@PathVariable Long id) {
+        imageService.deleteImageById(id);
+        ApiResponse<Void> response=new ApiResponse<>(HttpStatus.OK,"Delete Image Successfully",null);
+        return ResponseEntity.ok(response);
+    }
 
 
 }

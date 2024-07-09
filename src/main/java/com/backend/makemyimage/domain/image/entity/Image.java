@@ -41,4 +41,7 @@ public class Image {
         this.imageUrl = imageUrl;
     }
 
+    public void deleteImage() {
+        this.deleted = true;
+    }
 }
