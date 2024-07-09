@@ -20,6 +20,9 @@ public class Image {
     @Column(nullable = false)
     private String keyword;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     @CreatedDate
     private LocalDateTime createdAt;
 
