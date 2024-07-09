@@ -17,12 +17,11 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping("/image")
-    public ResponseEntity<ApiResponse<String>> getImage(@RequestBody ImageCreateRequest imageCreateRequest) {
-        String image = imageService.getImage(imageCreateRequest);
-        ApiResponse<String> response=new ApiResponse<>(HttpStatus.OK,"new image",image);
+    public ResponseEntity<ApiResponse<String>> createImage(@RequestBody ImageCreateRequest imageCreateRequest) {
+        String image = imageService.createImage(imageCreateRequest);
+        ApiResponse<String> response=new ApiResponse<>(HttpStatus.OK,"Create Image Successfully",image);
         return ResponseEntity.ok(response);
     }
-
 
 
 }
