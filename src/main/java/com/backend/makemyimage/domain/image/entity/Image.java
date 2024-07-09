@@ -1,6 +1,8 @@
 package com.backend.makemyimage.domain.image.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -8,6 +10,7 @@ import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name="image")
+@NoArgsConstructor
 public class Image {
 
     @Id
@@ -28,5 +31,12 @@ public class Image {
 
     @Column(nullable = false)
     private Boolean deleted = false;
+
+    @Builder
+    public Image(Long userId, String keyword, String imageUrl) {
+        this.userId = userId;
+        this.keyword = keyword;
+        this.imageUrl = imageUrl;
+    }
 
 }
