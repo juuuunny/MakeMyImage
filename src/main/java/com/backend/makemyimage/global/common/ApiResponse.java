@@ -1,4 +1,4 @@
-package com.backend.makemyimage.global.api;
+package com.backend.makemyimage.global.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

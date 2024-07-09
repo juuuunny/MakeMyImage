@@ -1,6 +1,6 @@
 package com.backend.makemyimage.global.exception;
 
-import com.backend.makemyimage.global.api.ApiResponse;
+import com.backend.makemyimage.global.common.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

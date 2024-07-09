@@ -5,7 +5,7 @@ import com.backend.makemyimage.domain.user.dto.request.LoginRequest;
 import com.backend.makemyimage.domain.user.dto.response.LoginResponse;
 import com.backend.makemyimage.domain.user.dto.response.UserInfoResponse;
 import com.backend.makemyimage.domain.user.service.UserService;
-import com.backend.makemyimage.global.api.ApiResponse;
+import com.backend.makemyimage.global.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

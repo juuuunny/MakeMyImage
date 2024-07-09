@@ -65,8 +65,7 @@ public class UserService {
 
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "User not found"));
-
-       UserInfoResponse userInfoResponse= UserInfoResponse.builder().name(user.getName()).email(user.getEmail()).build();
+        UserInfoResponse userInfoResponse= UserInfoResponse.builder().name(user.getName()).email(user.getEmail()).build();
         return userInfoResponse;
     }
 }

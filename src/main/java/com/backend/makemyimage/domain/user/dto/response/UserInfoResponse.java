@@ -14,3 +14,4 @@ public class UserInfoResponse {
         this.email = email;
     }
 }
+
