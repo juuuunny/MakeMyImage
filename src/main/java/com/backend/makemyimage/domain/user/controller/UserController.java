@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping("/user-info")
     public ResponseEntity<ApiResponse<UserInfoResponse>> getUserInfo(){
         UserInfoResponse userInfoResponse= userService.getUserInfo();
-        ApiResponse<UserInfoResponse> response=new ApiResponse<>(HttpStatus.OK,"Get Userinfo successfully",userInfoResponse);
+        ApiResponse<UserInfoResponse> response=new ApiResponse<>(HttpStatus.OK,"Get UserInfo successfully",userInfoResponse);
         return ResponseEntity.ok(response);
     }
 }

@@ -1,13 +1,14 @@
 package com.backend.makemyimage.domain.image.service;
 
 import com.backend.makemyimage.domain.image.dto.request.ImageCreateRequest;
-import com.backend.makemyimage.domain.image.dto.response.KeywordImageResponse;
 import com.backend.makemyimage.domain.image.dto.response.ImageResponse;
+import com.backend.makemyimage.domain.image.dto.response.KeywordImageResponse;
 import com.backend.makemyimage.domain.image.entity.Image;
 import com.backend.makemyimage.domain.image.repository.ImageRepository;
 import com.backend.makemyimage.domain.user.entity.User;
 import com.backend.makemyimage.domain.user.repository.UserRepository;
 import com.backend.makemyimage.domain.user.security.CustomUserDetails;
+import com.backend.makemyimage.global.config.FindUserByToken;
 import com.backend.makemyimage.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,17 +25,11 @@ public class ImageService {
 
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final FindUserByToken findUserByToken;
 
     public String createImage(ImageCreateRequest imageCreateRequest) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        String email = userDetails.getEmail(); // 사용자 이메일
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "User not found"));
-
+        User user = findUserByToken.findUser();
         String imageUrl= KakaoKarloService.getImage(imageCreateRequest);
-
         imageRepository.save(
                 Image.builder()
                         .userId(user.getId())
@@ -46,13 +40,7 @@ public class ImageService {
     }
 
     public List<ImageResponse> getImages() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        String email = userDetails.getEmail(); // 사용자 이메일
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "User not found"));
-
+        User user = findUserByToken.findUser();
         return imageRepository.findAllByUserId(user.getId()).stream().map(ImageResponse::new).toList();
     }
 

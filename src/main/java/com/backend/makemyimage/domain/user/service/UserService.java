@@ -7,6 +7,7 @@ import com.backend.makemyimage.domain.user.dto.response.UserInfoResponse;
 import com.backend.makemyimage.domain.user.entity.User;
 import com.backend.makemyimage.domain.user.repository.UserRepository;
 import com.backend.makemyimage.domain.user.security.CustomUserDetails;
+import com.backend.makemyimage.global.config.FindUserByToken;
 import com.backend.makemyimage.global.exception.CustomException;
 import com.backend.makemyimage.global.jwt.JWTUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +27,7 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
+    private final FindUserByToken findUserByToken;
 
     public void join(JoinRequest joinRequest)
     {
@@ -59,13 +60,7 @@ public class UserService {
     }
 
     public UserInfoResponse getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        String email = userDetails.getEmail(); // 사용자 이메일
-
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "User not found"));
-        UserInfoResponse userInfoResponse= UserInfoResponse.builder().name(user.getName()).email(user.getEmail()).build();
-        return userInfoResponse;
+        User user= findUserByToken.findUser();
+        return UserInfoResponse.builder().name(user.getName()).email(user.getEmail()).build();
     }
 }

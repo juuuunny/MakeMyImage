@@ -1,7 +1,6 @@
 package com.backend.makemyimage.domain.image.dto.response;
 
 import com.backend.makemyimage.domain.image.entity.Image;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
