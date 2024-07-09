@@ -1,6 +1,7 @@
 package com.backend.makemyimage.domain.image.service;
 
 import com.backend.makemyimage.domain.image.dto.request.ImageCreateRequest;
+import com.backend.makemyimage.domain.image.dto.response.ImageResponse;
 import com.backend.makemyimage.domain.image.dto.response.ImagesResponse;
 import com.backend.makemyimage.domain.image.entity.Image;
 import com.backend.makemyimage.domain.image.repository.ImageRepository;
@@ -56,5 +57,17 @@ public class ImageService {
         List<Image> images=imageRepository.findAllByUserId(user.getId());
         return images.stream().map(image->new ImagesResponse(image.getId(),image.getImageUrl(),image.getCreatedAt())).collect(Collectors.toList());
 
+    }
+
+    public ImageResponse getImageById(Long id) {
+        Image image= imageRepository.findById(id).orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Image not found"));
+
+        ImageResponse imageResponse = ImageResponse
+                .builder()
+                .imageUrl(image.getImageUrl())
+                .createdAt(image.getCreatedAt())
+                .keyword(image.getKeyword())
+                .build();
+        return imageResponse;
     }
 }
