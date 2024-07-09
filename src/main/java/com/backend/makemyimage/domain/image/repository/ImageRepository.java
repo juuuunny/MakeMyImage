@@ -1,6 +1,5 @@
 package com.backend.makemyimage.domain.image.repository;
 
-import com.backend.makemyimage.domain.image.dto.response.ImagesResponse;
 import com.backend.makemyimage.domain.image.entity.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,8 +1,8 @@
 package com.backend.makemyimage.domain.image.service;
 
 import com.backend.makemyimage.domain.image.dto.request.ImageCreateRequest;
+import com.backend.makemyimage.domain.image.dto.response.KeywordImageResponse;
 import com.backend.makemyimage.domain.image.dto.response.ImageResponse;
-import com.backend.makemyimage.domain.image.dto.response.ImagesResponse;
 import com.backend.makemyimage.domain.image.entity.Image;
 import com.backend.makemyimage.domain.image.repository.ImageRepository;
 import com.backend.makemyimage.domain.user.entity.User;
@@ -16,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,19 +34,18 @@ public class ImageService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "User not found"));
 
-        String image= KakaoKarloService.getImage(imageCreateRequest);
+        String imageUrl= KakaoKarloService.getImage(imageCreateRequest);
 
         imageRepository.save(
                 Image.builder()
                         .userId(user.getId())
-                        .imageUrl(image)
+                        .imageUrl(imageUrl)
                         .keyword(imageCreateRequest.getKeyword())
                         .build());
-        return image;
+        return imageUrl;
     }
 
-
-    public List<ImagesResponse> getImages() {
+    public List<ImageResponse> getImages() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         String email = userDetails.getEmail(); // 사용자 이메일
@@ -55,21 +53,12 @@ public class ImageService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "User not found"));
 
-        List<Image> images=imageRepository.findAllByUserId(user.getId());
-        return images.stream().map(image->new ImagesResponse(image.getId(),image.getImageUrl(),image.getCreatedAt())).collect(Collectors.toList());
-
+        return imageRepository.findAllByUserId(user.getId()).stream().map(ImageResponse::new).toList();
     }
 
-    public ImageResponse getImageById(Long id) {
+    public KeywordImageResponse getImageById(Long id) {
         Image image= imageRepository.findById(id).orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Image not found"));
-
-        ImageResponse imageResponse = ImageResponse
-                .builder()
-                .imageUrl(image.getImageUrl())
-                .createdAt(image.getCreatedAt())
-                .keyword(image.getKeyword())
-                .build();
-        return imageResponse;
+        return new KeywordImageResponse(image);
     }
 
     @Transactional

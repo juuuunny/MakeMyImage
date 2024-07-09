@@ -1,20 +1,20 @@
 package com.backend.makemyimage.domain.image.dto.response;
 
 import com.backend.makemyimage.domain.image.entity.Image;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class ImageResponse {
-    private Long id;
+public class KeywordImageResponse {
     private String imageUrl;
     private LocalDateTime createdAt;
+    private String keyword;
 
-    public ImageResponse(Image image) {
-        this.id = image.getId();
+    public KeywordImageResponse(Image image){
         this.imageUrl = image.getImageUrl();
         this.createdAt = image.getCreatedAt();
+        this.keyword = image.getKeyword();
     }
 }
