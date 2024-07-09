@@ -20,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageService {
 
-    private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final FindUserByToken findUserByToken;
 

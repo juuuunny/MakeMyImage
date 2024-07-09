@@ -49,7 +49,7 @@ public class KakaoKarloService {
                 return imageResponse.getImages().get(0).getImage();
             }
         } catch (IOException e) {
-            new CustomException(HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage());
+            throw new CustomException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 
         return null;
