@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/join").permitAll()
+                        .requestMatchers("/join","/login").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()  // h2-console 접근 허용
                         .anyRequest().authenticated())
                 .addFilterBefore(new JWTFilter(jwtUtil, userRepository), UsernamePasswordAuthenticationFilter.class)
