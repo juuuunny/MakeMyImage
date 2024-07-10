@@ -7,7 +7,7 @@ import com.backend.makemyimage.domain.user.dto.response.UserInfoResponse;
 import com.backend.makemyimage.domain.user.entity.User;
 import com.backend.makemyimage.domain.user.repository.UserRepository;
 import com.backend.makemyimage.domain.user.security.CustomUserDetails;
-import com.backend.makemyimage.global.config.FindUserByToken;
+import com.backend.makemyimage.global.common.FindUserByToken;
 import com.backend.makemyimage.global.exception.CustomException;
 import com.backend.makemyimage.global.jwt.JWTUtil;
 import lombok.RequiredArgsConstructor;
