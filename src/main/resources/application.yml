@@ -45,3 +45,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
   jwt:
     secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
+  karlo:
+    api:
+      url: https://api.kakaobrain.com/v2/inference/karlo/t2i
+      key: 8ccae1a04b5a63bb7cf04a5c3968b96a
